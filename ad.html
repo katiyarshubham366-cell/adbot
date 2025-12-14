@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+
+<h3>📺 Watch Ad</h3>
+
+<div style="height:250px;background:#ccc;text-align:center;">
+  AD PLACE
+</div>
+
+<p id="timer">30</p>
+<button id="claim" disabled>Claim</button>
+
+<script>
+const tg = window.Telegram.WebApp;
+const userId = tg.initDataUnsafe.user.id;
+
+let time = 30;
+let i = setInterval(() => {
+  time--;
+  document.getElementById("timer").innerText = `Wait ${time}s`;
+
+  if (time <= 0) {
+    clearInterval(i);
+    document.getElementById("claim").disabled = false;
+  }
+}, 1000);
+
+document.getElementById("claim").onclick = () => {
+  fetch("/claim", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({ telegramId: userId })
+  }).then(() => tg.close());
+};
+</script>
+
+</body>
+</html>
