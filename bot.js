@@ -9,10 +9,13 @@ bot.onText(/\/start/, (msg) => {
         inline_keyboard: [[
           {
             text: "📺 Watch Ad Now",
-            web_app: { url: "http://localhost:3000/ad.html" }
+            web_app: {
+  url: "https://adbot-yc1u.onrender.com/ad.html"
+            }
           }
         ]]
       }
     }
   );
+
 });
